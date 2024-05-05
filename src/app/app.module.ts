@@ -30,6 +30,9 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 import { AngularFireModule } from "@angular/fire/compat";
 import { WebsiteInfoComponent } from './components/website-info/website-info.component';
 import { PostCommentComponent } from './components/post-comment/post-comment.component';
+import { LoginComponent } from './login/login.component';
+import { AppRoutingModule } from './app-routing.module';
+
 
 const customConfig: ShareButtonsConfig = {
   autoSetMeta: true,
@@ -53,6 +56,7 @@ const customConfig: ShareButtonsConfig = {
     AuthorProfileComponent,
     WebsiteInfoComponent,
     PostCommentComponent,
+    LoginComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -67,22 +71,9 @@ const customConfig: ShareButtonsConfig = {
     NgMaterialModule,
     CKEditorModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: "", component: HomeComponent, pathMatch: "full" },
-      { path: "page/:pagenum", component: HomeComponent },
-      {
-        path: "addpost",
-        component: BlogEditorComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "editpost/:id",
-        component: BlogEditorComponent,
-        canActivate: [AdminAuthGuard],
-      },
-      { path: "blog/:id/:slug", component: BlogComponent },
-      { path: "**", component: HomeComponent },
-    ]),
+    RouterModule,
+  
+    AppRoutingModule,
   ],
   bootstrap: [AppComponent],
 })

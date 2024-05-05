@@ -9,53 +9,51 @@
     <div *ngFor="let post of vm.blogList | paginate : config">
       <mat-card class="mat-elevation-z2 mb-3">
         <mat-card-header>
-          <a
-            class="blog-title"
-            [routerLink]="['/blog/', post.postId, post.title | slug]"
-          >
+          <a class="blog-title" [routerLink]="['/blog/', post.postId, post.title | slug]">
             <h2>{{ post.title }}</h2>
           </a>
         </mat-card-header>
         <mat-card-content class="my-2">
           <div [innerHTML]="post.content | excerpt"></div>
         </mat-card-content>
+
         <mat-divider></mat-divider>
+
         <mat-card-actions align="end" class="my-2">
           <ng-container *ngIf="vm.appUser?.isAdmin">
-            <button
-              class="mx-2"
-              mat-raised-button
-              color="accent"
-              [routerLink]="['/editpost', post.postId]"
-            >
-              Edit
-            </button>
-            <button
-              mat-raised-button
-              color="warn"
-              (click)="delete(post.postId)"
-            >
-              Delete
-            </button>
+            <button class="mx-2" mat-raised-button color="accent" [routerLink]="['/editpost', post.postId]">Edit</button>
+            <button mat-raised-button color="warn" (click)="delete(post.postId)">Delete</button>
           </ng-container>
-          <span class="spacer"></span>
-          <button
-            mat-raised-button
-            color="primary"
-            [routerLink]="['/blog/', post.postId, post.title | slug]"
-          >
-            Read More
-          </button>
+          <button mat-raised-button color="primary" [routerLink]="['/blog/', post.postId, post.title | slug]" style="margin-right: 8px;">Read More</button>
+          <button mat-raised-button [color]="likedPosts[post.postId] ? 'accent' : 'primary'" (click)="toggleLike(post.postId)">Like</button>
         </mat-card-actions>
+
+        <mat-divider></mat-divider>
+
+        <div class="comments-section">
+          
+          <div *ngFor="let comment of post.comments">
+            <mat-card class="comment">
+              <mat-card-content>
+                <p><strong>{{ comment.author }}</strong> says:</p>
+                <p>{{ comment.text }}</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <form (submit)="addComment(post.postId, commentText)" style="margin-top: 20px;">
+            <mat-form-field appearance="outline"  style="width: auto; padding: 0; margin-top: 0; margin-bottom: 8px;">
+              <mat-label>Write a comment</mat-label>
+              <input matInput [(ngModel)]="commentText" name="commentText{{post.postId}}"  style="font-size: 14px;">
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit" class="small-button" style="margin-left: 8px; font-size: 12px; padding: 4px 10px;">Post Comment</button>
+          </form>
+        </div>
       </mat-card>
     </div>
-    <mat-divider></mat-divider>
-    <app-paginator
-      [pageSizeOptions]="pageSizeOptions"
-      [config]="config"
-    ></app-paginator>
+    <app-paginator [pageSizeOptions]="pageSizeOptions" [config]="config"></app-paginator>
   </ng-container>
   <ng-template #noData>
     <h3>No data found</h3>
   </ng-template>
 </ng-container>
+

@@ -13,9 +13,9 @@ export class NavBarComponent {
 
   constructor(private readonly authService: AuthService) {}
 
-  login() {
-    this.authService.login();
-  }
+  //login() {
+   // this.authService.login();
+  //}
 
   logout() {
     this.authService.logout();

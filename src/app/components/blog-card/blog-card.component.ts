@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { BlogService } from "src/app/services/blog.service";
-import { Post } from "src/app/models/post";
+import { Post } from "src/app/models/Post";
 import { ActivatedRoute } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
 import { CommentService } from "src/app/services/comment.service";
@@ -26,7 +26,13 @@ class Vm {
 })
 export class BlogCardComponent {
   config: any;
-  pageSizeOptions = [];
+  pageSizeOptions = []; 
+  likedPosts: {[key: string]: boolean} = {} 
+
+  likePost(postId: string): void{
+  this.likedPosts[postId] = !this.likedPosts[postId];
+  console.log(`Like status for post ${postId}: ${this.likedPosts[postId]}`);
+  }
 
   vm$ = this.activatedRoute.paramMap.pipe(
     combineLatestWith(
@@ -42,7 +48,13 @@ export class BlogCardComponent {
 
       return blogVm;
     })
+      
   );
+
+  
+
+
+  
 
   constructor(
     private readonly blogService: BlogService,
@@ -67,4 +79,6 @@ export class BlogCardComponent {
       });
     }
   }
+
+ 
 }
