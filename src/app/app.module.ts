@@ -32,6 +32,9 @@ import { WebsiteInfoComponent } from './components/website-info/website-info.com
 import { PostCommentComponent } from './components/post-comment/post-comment.component';
 import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
+import { SignupComponent } from './signup/signup.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+
 
 
 const customConfig: ShareButtonsConfig = {
@@ -57,6 +60,9 @@ const customConfig: ShareButtonsConfig = {
     WebsiteInfoComponent,
     PostCommentComponent,
     LoginComponent,
+    SignupComponent,
+    UserDetailsComponent,
+    
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

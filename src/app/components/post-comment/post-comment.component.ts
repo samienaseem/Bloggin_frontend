@@ -1,3 +1,4 @@
+
 import { Component, Input } from "@angular/core";
 import { DatePipe } from "@angular/common";
 import { Comments } from "src/app/models/comment";
@@ -34,7 +35,7 @@ export class PostCommentComponent {
       .then(commentForm.resetForm());
   }
 
-  login() {
-    this.authService.login();
-  }
+  //login() {
+   // this.authService.login();
+  //}
 }

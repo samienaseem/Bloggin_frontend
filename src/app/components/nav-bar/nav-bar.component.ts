@@ -9,9 +9,9 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 })
 export class NavBarComponent {
   appUser$ = this.authService.appUser$;
-  githubIcon = faGithub;
+ githubIcon = faGithub;
 
-  constructor(private readonly authService: AuthService) {}
+  constructor(public authService: AuthService) {}
 
   //login() {
    // this.authService.login();
