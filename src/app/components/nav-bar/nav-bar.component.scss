@@ -1,0 +1,24 @@
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.user-avatar {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.github-icon {
+  font-size: large;
+}
+
+mat-toolbar {
+  background-color: #AA6C39;  // Sets the navbar background to gold
+}

@@ -1,0 +1,68 @@
+<!-- Loading Spinner -->
+<ng-template #loading>
+  <div class="d-flex justify-content-center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+
+<!-- Main Content -->
+<ng-container *ngIf="vm$ | async as vm; else loading">
+  <!-- Blog Posts -->
+  <ng-container *ngIf="vm.blogList?.length > 0; else noData">
+    <div *ngFor="let post of vm.blogList | paginate: config">
+      <mat-card class="mat-elevation-z2 mb-3">
+        <mat-card-header>
+          <a class="blog-title" [routerLink]="['/blog/', post.id, post.title | slug]">
+            <h2>{{ post.title }}</h2>
+          </a>
+        </mat-card-header>
+        <mat-card-content class="my-2">
+          <!-- Display the blog content with a custom excerpt -->
+          <div [innerHTML]="post.content | excerpt"></div>
+        </mat-card-content>
+
+        <mat-divider></mat-divider>
+
+        <!-- Blog Actions -->
+        <mat-card-actions align="end" class="my-2">
+          <!-- Conditional Admin Actions -->
+          <ng-container *ngIf="vm.appUser?.isAdmin">
+            <button class="mx-2" mat-raised-button color="accent" [routerLink]="['/editpost', post.id]">Edit</button>
+            <button mat-raised-button color="warn" (click)="delete(post.id)">Delete</button>
+          </ng-container>
+          <button mat-raised-button color="primary" [routerLink]="['/blog/', post.id, post.title | slug]" style="margin-right: 8px;">Read More</button>
+          <button mat-raised-button [color]="likedPosts[post.id] ? 'accent' : 'primary'" (click)="toggleLike(post.id)">Like</button>
+        </mat-card-actions>
+
+        <mat-divider></mat-divider>
+
+        <!-- Comments Section -->
+        <div class="comments-section">
+          <!-- Iterate Over Comments -->
+          <div *ngFor="let comment of post.comments">
+            <mat-card class="comment">
+              <mat-card-content>
+                <p><strong>{{ comment.author }}</strong> says:</p>
+                <p>{{ comment.text }}</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <!-- Add Comment Form -->
+          <form (submit)="addComment(post.id, commentText)" style="margin-top: 20px;">
+            <mat-form-field appearance="outline" style="width: auto; padding: 0; margin-top: 0; margin-bottom: 8px;">
+              <mat-label>Write a comment</mat-label>
+              <input matInput [(ngModel)]="commentText" name="commentText{{post.id}}" style="font-size: 14px;">
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit" class="small-button" style="margin-left: 8px; font-size: 12px; padding: 4px 10px;">Post Comment</button>
+          </form>
+        </div>
+      </mat-card>
+    </div>
+    <!-- Pagination Component -->
+    <app-paginator [pageSizeOptions]="pageSizeOptions" [config]="config"></app-paginator>
+  </ng-container>
+  <!-- No Data Message -->
+  <ng-template #noData>
+    <h3>No data found</h3>
+  </ng-template>
+</ng-container>

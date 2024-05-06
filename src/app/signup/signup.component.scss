@@ -1,0 +1,17 @@
+.signup-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .signup-card {
+    width: 100%;
+    max-width: 400px;
+    background-color: black;
+    color: gold;
+  
+    mat-form-field {
+      width: 100%;
+    }
+  }
+  

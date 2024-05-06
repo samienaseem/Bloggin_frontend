@@ -1,0 +1,114 @@
+// .blog-title {
+//   text-decoration: none;
+// }
+
+// a:hover {
+//   color: indianred;
+// }
+
+// .small-button {
+//   font-size: 12px;
+//   padding: 4px 10px;
+// }
+
+// .comment-heading-style{
+//   font-style: oblique;
+//   font-family: fantasy;
+//   font-size: small; 
+
+// }
+
+/* General Styles */
+.blog-title {
+  text-decoration: none;
+  color: inherit;
+}
+
+.blog-title:hover {
+  text-decoration: underline;
+  color: #1976d2; /* or any color you prefer */
+}
+
+/* Mat-Card */
+.mat-card {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mat-card h2 {
+  margin: 0;
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+.mat-card-subtitle {
+  display: flex;
+  align-items: center;
+  color: #757575;
+  font-size: 0.9em;
+}
+
+.mat-card-subtitle .fa-icon {
+  margin-right: 4px;
+  color: #757575;
+}
+
+.mat-divider {
+  margin: 8px 0;
+}
+
+/* Mat-Card Actions */
+.mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.mat-card-actions button {
+  font-size: 0.9em;
+}
+
+.mat-card-actions .small-button {
+  padding: 4px 8px;
+  margin-right: 8px;
+}
+
+/* Comments Section */
+.comments-section {
+  margin-top: 16px;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 8px;
+}
+
+.comments-section .comment {
+  margin-bottom: 12px;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  box-shadow: none;
+  padding: 12px;
+}
+
+.comments-section .comment p {
+  margin: 0;
+  font-size: 0.9em;
+}
+
+.comments-section form {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.comments-section mat-form-field {
+  flex: 1;
+  margin: 0;
+  min-width: 60%;
+}
+
+.comments-section button {
+  margin-left: 8px;
+  font-size: 0.9em;
+  padding: 4px 12px;
+}
