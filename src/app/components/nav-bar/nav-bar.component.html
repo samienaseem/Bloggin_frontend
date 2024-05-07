@@ -1,0 +1,14 @@
+<mat-toolbar  class="mat-elevation-z4, primary">
+  <mat-toolbar-row>
+    <button mat-button [routerLink]="['/']"><img src="assets/University_of_Surrey.jpg" width="40px" height="40px"></button>
+    <ng-container *ngIf="authService.appUser$ | async as user; else anonymousUser">
+      <button mat-button [routerLinkActive]="['link-active']" [routerLink]="['/addpost']">Add Post</button>
+      <button mat-button [routerLink]="['/user-details']">{{ user.name }}</button>
+      <button mat-button (click)="authService.logout()">Logout</button>
+    </ng-container>
+    <ng-template #anonymousUser>
+      <button mat-button [routerLink]="['/login']">Login</button>
+      <button mat-button [routerLink]="['/signup']">Signup</button>
+    </ng-template>
+  </mat-toolbar-row>
+</mat-toolbar>

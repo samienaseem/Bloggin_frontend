@@ -1,0 +1,70 @@
+<ng-template #loading>
+  <div class="loading-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+
+<img src="assets/surrey.jpg" alt="uni of surrey" class="background-image">
+
+<ng-container *ngIf="vm$ | async as vm; else loading" class="full-page-container">
+  
+    <mat-card-header>
+      <h2>Add Post</h2>
+    </mat-card-header>
+    <mat-card-content>
+      <form (submit)="createPost()">
+        <mat-form-field appearance="fill" class="full-width-input">
+          <mat-label>Title</mat-label>
+          <input matInput [(ngModel)]="newPostTitle" name="title">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width-input">
+          <mat-label>Content</mat-label>
+          <textarea matInput [(ngModel)]="newPostContent" name="content"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width-input">
+          <mat-label>Tags</mat-label>
+          <mat-select [(value)]="selectedTags" multiple>
+            <mat-option *ngFor="let tag of availableTags" [value]="tag">{{ tag }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Post</button>
+      </form>
+    </mat-card-content>
+ 
+  <ng-container *ngIf="vm.blogList?.length > 0; else noData">
+    <div class="full-width-container">
+      <div *ngFor="let post of vm.blogList | paginate : config"  class= "blog-post-card full-page-card">
+        
+        <mat-card class="full-width-card">
+          <mat-card-header>
+            <a class="blog-title" [routerLink]="['/blog/', post.postId, post.title | slug]">
+              <h2>{{ post.title }}</h2>
+            </a>
+          </mat-card-header>
+          <mat-card-content>
+            <div [innerHTML]="post.content | excerpt"></div>
+          </mat-card-content>
+          <mat-card-actions style="justify-content: space-between;">
+           
+            <button mat-raised-button color="primary" [routerLink]="['/blog/', post.postId, post.title | slug]" style="font-size: 14px; padding: 8px 14px;">Read More</button>
+
+            <button mat-raised-button [color]="likedPosts[post.postId] ? 'accent' : 'primary'" (click)="toggleLike(post.postId)">Like</button>
+          </mat-card-actions>
+            
+           
+          
+          
+        
+          <mat-divider></mat-divider>
+          
+        </mat-card>
+      </div>
+    </div>
+    <app-paginator [pageSizeOptions]="pageSizeOptions" [config]="config" class="paginator"></app-paginator>
+  </ng-container>
+  <ng-template #noData>
+    <div class="no-data-container">
+      <h3>No data found</h3>
+    </div>
+  </ng-template>
+</ng-container>
